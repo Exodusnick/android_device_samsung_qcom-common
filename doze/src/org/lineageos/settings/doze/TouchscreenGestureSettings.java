@@ -24,12 +24,13 @@ import android.support.v7.preference.Preference;
 import android.provider.Settings;
 import android.view.MenuItem;
 
-
 public class TouchscreenGestureSettings extends PreferenceFragment {
 
     private static final String KEY_HAND_WAVE = "gesture_hand_wave";
     private static final String KEY_PROXIMITY_WAKE = "proximity_wake_enable";
+    //private static final String KEY_ALWAYS_ON = "always_on_display";
 
+    private SwitchPreference mAlwaysOnDisplayPreference;
     private SwitchPreference mHandwavePreference;
     private SwitchPreference mProximityWakePreference;
 
@@ -39,36 +40,56 @@ public class TouchscreenGestureSettings extends PreferenceFragment {
         final ActionBar actionBar = getActivity().getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        //mAlwaysOnDisplayPreference = 
+            //(SwitchPreference) findPreference(KEY_ALWAYS_ON);
+        //mAlwaysOnDisplayPreference.setOnPreferenceChangeListener(mProximityListener);
+        //mAlwaysOnDisplayPreference.setChecked(SamsungDozeService.isAlwaysOnEnabled(getActivity()));
+
         mHandwavePreference =
             (SwitchPreference) findPreference(KEY_HAND_WAVE);
-        mHandwavePreference.setOnPreferenceChangeListener(mProximityListener);
+       // mHandwavePreference.setOnPreferenceChangeListener(mProximityListener);
+
         mProximityWakePreference =
             (SwitchPreference) findPreference(KEY_PROXIMITY_WAKE);
-        mProximityWakePreference.setOnPreferenceChangeListener(mProximityListener);
+       // mProximityWakePreference.setOnPreferenceChangeListener(mProximityListener);
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        // We arealways running on a phone (J5), so remove padding around the listview
+        // Always on a phone (J5), so remove padding around the listview
         getListView().setPadding(0, 0, 0, 0);
     }
 
-    private Preference.OnPreferenceChangeListener mProximityListener =
-        new Preference.OnPreferenceChangeListener() {
-        @Override
-        public boolean onPreferenceChange(Preference preference, Object newValue) {
-            if ((boolean) newValue) {
-                if (preference.getKey().equals(KEY_HAND_WAVE)) {
-                    mProximityWakePreference.setChecked(false);
-                } else if (preference.getKey().equals(KEY_PROXIMITY_WAKE)) {
-                    mHandwavePreference.setChecked(false);
-                }
-            }
-            return true;
-        }
-    };
+ // private Preference.OnPreferenceChangeListener mProximityListener =
+   // new Preference.OnPreferenceChangeListener() {
+      //  @Override
+       // public boolean onPreferenceChange(Preference preference, Object newValue) {
+            // if ((boolean) newValue) {
+            //     if (preference.getKey().equals(KEY_HAND_WAVE)) {
+            //         mProximityWakePreference.setChecked(false);
+            //     } else if (preference.getKey().equals(KEY_PROXIMITY_WAKE)) {
+            //         mHandwavePreference.setChecked(false);
+            //     } else if (preference.getKey().equals(KEY_ALWAYS_ON)){
+            //         mAlwaysOnDisplayPreference.setChecked(false);
+            //         SamsungDozeService.enableAlwaysOn(getActivity(), (Boolean) newValue);
+            //     }
+            // }
+            // else {
+            //     if( preference.getKey().equals(KEY_ALWAYS_ON)){
+            //         mAlwaysOnDisplayPreference.setChecked(true);
+            //         SamsungDozeService.enableAlwaysOn(getActivity(), (Boolean) newValue);
+            //     }
+            // }
+
+           // if ( preference.getKey().equals(KEY_ALWAYS_ON)){
+             //   mAlwaysOnDisplayPreference.setChecked(!((Boolean) newValue));
+               // SamsungDozeService.enableAlwaysOn(getActivity(), (Boolean) newValue);
+            //}
+           // return true;
+       // }
+   //};
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
