@@ -17,6 +17,8 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
+        android:key="proximity_wake_key"
+        android:title="@string/proximity_sensor_title">                
         
         <SwitchPreference
             android:key="gesture_hand_wave"
